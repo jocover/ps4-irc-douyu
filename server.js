@@ -12,6 +12,7 @@ c.on('end', function() {
     console.log('PS4断开');
   });
 c.on('data',function(data){
+//模拟irc.twitch.tv服务器
 var match = /^(\w+)\s+(.*)/.exec(data);
 		if (!match) {
 			return;
@@ -19,7 +20,7 @@ var match = /^(\w+)\s+(.*)/.exec(data);
 var conn;
 var command = match[1].toUpperCase(),
 			rest = match[2];
-console.log("Command:"+command+"   Rest:"+rest);
+//console.log("Command:"+command+"   Rest:"+rest);
 switch (command) {
 case "PASS":
 c.write(":tmi.twitch.tv 001 jocover :Welcome, GLHF!\r\n","ascii");
@@ -49,7 +50,7 @@ break;
 function connectdouyu (msg){
 var client = net.connect(PORT,HOST,
     function() { //'connect' listener
-  console.log('client connected');
+  console.log('连接斗鱼弹幕服务器');
 client.setKeepAlive('true',1000);
 sleep(4);
   client.write('5a0000005a000000b102000074797065403d6c6f67696e7265712f757365726e616d65403d6175746f5f615a464c4a687255696c2f70617373776f7264403d313233343536373839303132333435362f726f6f6d6964403d353830322f00','hex');
@@ -59,17 +60,17 @@ sleep(1);
 client.on('connect',function(){});
 
 setInterval(function(){
+//斗鱼弹幕心跳包，5000ms循环发送一次
 client.write('2100000021000000b202000074797065403d6b6565706c6976652f7469636b403d34382f00','hex');
 },5000);
 
 client.on('error',function(err){
 console.log('error:'+err.toString("ascii"));
-//console.log("\r\n");
 });
 
 
 client.on('data', function(data) {
-        console.log(data.toString());
+        //console.log(data.toString());获取弹幕信息
         var match = data.toString();
         if(match.indexOf("chatmessage")>1){
         var name = match.substring(match.indexOf("snick@=") + 7, match.indexOf("/cd@"));
@@ -77,12 +78,9 @@ client.on('data', function(data) {
         msg.write(":" + name + "!" + name + "@" + name + ".tmi.twitch.tv PRIVMSG #jocover :" + message + "\r\n");
 	 }
 
-
-//console.log(global);
-//  client.end();
 });
 client.on('end', function() {
-  console.log('斗鱼弹幕断开\n');
+  console.log('斗鱼弹幕服务器断开\n');
 });
 
 });
