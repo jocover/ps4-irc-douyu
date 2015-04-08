@@ -4,11 +4,15 @@ ps4-irc-douyu
 ps4直播douyu.tv弹幕转发服务器
 
 
-把下面4个ip做本地映射
-199.9.250.239
-199.9.250.229
-199.9.253.199
-199.9.253.210
+把irc.twitch.tv下面4个ip做本地映射
+Name:	irc.twitch.tv
+Address: 192.16.64.11
+Name:	irc.twitch.tv
+Address: 192.16.64.145
+Name:	irc.twitch.tv
+Address: 192.16.64.152
+Name:	irc.twitch.tv
+Address: 192.16.64.144
 
 然后把代码中所有的jocover改成你的twitch登录昵称
 
