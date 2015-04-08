@@ -51,6 +51,7 @@ function connectdouyu (msg){
 var client = net.connect(PORT,HOST,
     function() { //'connect' listener
   console.log('连接斗鱼弹幕服务器');
+  client.removeAllListeners('data');
 client.setKeepAlive('true',1000);
 sleep(4);
   client.write('5a0000005a000000b102000074797065403d6c6f67696e7265712f757365726e616d65403d6175746f5f615a464c4a687255696c2f70617373776f7264403d313233343536373839303132333435362f726f6f6d6964403d353830322f00','hex');
