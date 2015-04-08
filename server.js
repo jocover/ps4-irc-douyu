@@ -75,7 +75,12 @@ client.on('data', function(data) {
         if(match.indexOf("chatmessage")>1){
         var name = match.substring(match.indexOf("snick@=") + 7, match.indexOf("/cd@"));
         var message = match.substring(match.indexOf("content@") + 9, match.indexOf("/snick@"));
-        msg.write(":" + name + "!" + name + "@" + name + ".tmi.twitch.tv PRIVMSG #jocover :" + message + "\r\n");
+        try {
+       	msg.write(":" + name + "!" + name + "@" + name + ".tmi.twitch.tv PRIVMSG #jocover :" + message + "\r\n");
+    	} catch(ex) {
+      		console.log(ex);
+    	}
+       
 	 }
 
 });
